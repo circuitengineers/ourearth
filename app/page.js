@@ -6,6 +6,7 @@ import HowItWorks from "./components/HowItWorks";
 import ShareSection from "./components/ShareSection";
 import Trust from "./components/Trust";
 import Footer from "./components/Footer";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
