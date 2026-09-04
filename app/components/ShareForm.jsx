@@ -19,6 +19,7 @@ export default function ShareForm() {
   const [story, setStory] = useState("");
   const [region, setRegion] = useState("");
   const [category, setCategory] = useState("fire");
+  const [customCategory, setCustomCategory] = useState("");
   const [organization, setOrganization] = useState("");
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [storyCode, setStoryCode] = useState(null);
@@ -27,6 +28,7 @@ export default function ShareForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!story.trim() || !region.trim()) return;
+    if (category === "other" && !customCategory.trim()) return;
 
     setStatus("submitting");
     setErrorMessage("");
@@ -45,6 +47,7 @@ export default function ShareForm() {
       quote: story.trim(),
       region: region.trim(),
       category,
+      custom_category: category === "other" ? customCategory.trim() : null,
       organization: organization.trim() || null,
       story_code: code,
       status: "pending_review",
@@ -124,6 +127,15 @@ export default function ShareForm() {
             </button>
           ))}
         </div>
+        {category === "other" && (
+          <input
+            required
+            value={customCategory}
+            onChange={(e) => setCustomCategory(e.target.value)}
+            placeholder="Describe the kind of impact in a few words"
+            className="mt-3 w-full rounded-sm border border-line bg-paper px-3.5 py-3 text-sm text-ink placeholder:text-ink-soft/60 focus:outline-none focus:ring-2 focus:ring-teal"
+          />
+        )}
       </div>
 
       <div className="mb-5">
